@@ -1,6 +1,8 @@
 # ===== 1. Import thư viện =====
 import telebot
 import re
+import os
+from flask import Flask
 
 # ===== 2. Cấu hình bot =====
 TOKEN = '7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI'  # Thay bằng token từ BotFather
@@ -61,3 +63,25 @@ def handle_message(message):
 
 print('Bot is running...')
 bot.polling()
+
+
+# ===== 3. Chạy Flask để giữ Web Service hoạt động =====
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+# ===== 4. Chạy bot và server Flask =====
+if __name__ == '__main__':
+    from threading import Thread
+    
+    # Chạy bot trên một luồng riêng
+    def run_bot():
+        bot.polling()
+
+    Thread(target=run_bot).start()
+
+    # Chạy Flask trên cổng Render yêu cầu
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
