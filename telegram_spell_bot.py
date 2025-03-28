@@ -69,7 +69,7 @@ def preprocess_van_ban(van_ban):
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     van_ban_goc = message.text
-    ket_qua = tach_van_ban(van_ban_goc)
+    ket_qua = preprocess_van_ban(van_ban_goc)
     bot.reply_to(message, ket_qua)
 
 print('Bot is running...')
