@@ -2,7 +2,7 @@
 import telebot
 import re
 import os
-from flask import Flask
+from flask import Flask, request
 
 
 # ===== 2. Cấu hình bot =====
