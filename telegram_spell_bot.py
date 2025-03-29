@@ -171,7 +171,7 @@ def xu_ly_cum_so_lenh(groups):
         else:  # Trường hợp khác giữ nguyên
             result.append(" ".join(numbers + commands))
 
-    return "\n".join([" ; ".join(line.split("\n")) for line in result])
+    return "; ".join(map(str.strip, result))
 
 
 
