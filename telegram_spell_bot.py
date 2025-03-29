@@ -192,16 +192,21 @@ app = Flask(__name__)
 def home():
     return "Bot is running!"
 
-# ===== 4. Chạy bot và server Flask =====
-if __name__ == '__main__':
-    from threading import Thread
-    
-    # Chạy bot trên một luồng riêng
-    def run_bot():
-        bot.polling()
+@app.route(f'/{7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI}', methods=['POST'])
+def receive_update():
+    update = request.get_json()
+    if update:
+        bot.process_new_updates([telebot.types.Update.de_json(update)])
+    return "OK", 200
 
-    Thread(target=run_bot).start()
-
-    # Chạy Flask trên cổng Render yêu cầu
+if name == 'main':
+    # Lấy port từ biến môi trường (Render cung cấp)
     port = int(os.environ.get("PORT", 10000))
+
+    # Thiết lập webhook
+    WEBHOOK_URL = f"https://your-app-name.onrender.com/{7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI}"
+    bot.remove_webhook()
+    bot.set_webhook(url=WEBHOOK_URL)
+
+    # Chạy Flask server
     app.run(host='0.0.0.0', port=port)
