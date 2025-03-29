@@ -205,7 +205,8 @@ if name == 'main':
     port = int(os.environ.get("PORT", 10000))
 
     # Thiết lập webhook
-    WEBHOOK_URL = f"https://telebot-1-io0s.onrender.com/{7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI}"
+    TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"  # Định nghĩa TOKEN trước
+    WEBHOOK_URL = f"https://telebot-1-io0s.onrender.com/{TOKEN}"
     bot.remove_webhook()
     bot.set_webhook(url=WEBHOOK_URL)
 
