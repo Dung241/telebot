@@ -202,7 +202,7 @@ def receive_update():
 
 if name == 'main':
     # Lấy port từ biến môi trường (Render cung cấp)
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT", 5000))
 
     # Thiết lập webhook
     TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"  # Định nghĩa TOKEN trước
