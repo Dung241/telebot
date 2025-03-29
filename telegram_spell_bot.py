@@ -43,6 +43,7 @@ def preprocess_van_ban(van_ban):
         r'\bb\đ(?=\d*)': 'bldao',
         r'\bx\đ(?=\d*)': 'xcdao',
         r'dxc': 'xcdao',
+        r'\bxd(\d+)': r'xcdao\1'
         r'\bđđ\b': 'dd',
         r'\bx(\d+)': r'xc\1',
         r'\bb(\d+)': r'bl\1',
