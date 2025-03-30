@@ -188,28 +188,31 @@ print('Bot is running...')
 bot.polling()
 
 # ===== 3. Chạy Flask để giữ Web Service hoạt động =====
+TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"
+WEBHOOK_URL = f"https://telebot-1-io0s.onrender.com/{TOKEN}"
+
+bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Bot is running!"
 
-@app.route(f'/{7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI}', methods=['POST'])
+@app.route(f'/{TOKEN}', methods=['POST'])
 def receive_update():
     update = request.get_json()
     if update:
         bot.process_new_updates([telebot.types.Update.de_json(update)])
     return "OK", 200
 
-if name == 'main':
-    # Lấy port từ biến môi trường (Render cung cấp)
+if __name__ == "__main__":
+    # Lấy PORT từ biến môi trường (Render cấp)
     port = int(os.environ.get("PORT", 5000))
 
     # Thiết lập webhook
-    TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"  # Định nghĩa TOKEN trước
-    WEBHOOK_URL = f"https://telebot-1-io0s.onrender.com/{TOKEN}"
     bot.remove_webhook()
     bot.set_webhook(url=WEBHOOK_URL)
 
     # Chạy Flask server
-    app.run(host='0.0.0.0', port=port)
+    app.run(host="0.0.0.0", port=port)
+
