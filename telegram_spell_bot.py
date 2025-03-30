@@ -207,7 +207,7 @@ def receive_update():
 
 if __name__ == "__main__":
     # Lấy PORT từ biến môi trường (Render cấp)
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 10000))
 
     # Thiết lập webhook
     bot.remove_webhook()
