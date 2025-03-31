@@ -1,14 +1,13 @@
-
 # ===== 1. Import thư viện =====
 import telebot
 import re
 import os
 from flask import Flask, request
 
-
 # ===== 2. Cấu hình bot =====
 TOKEN = '7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI'  # Thay bằng token từ BotFather
 bot = telebot.TeleBot(TOKEN)
+
 
 # ===== 3. Hàm tách văn bản =====
 def preprocess_van_ban(van_ban):
@@ -175,7 +174,7 @@ def xu_ly_cum_so_lenh(groups):
     return "; ".join(map(str.strip, result))
 
 
-
+# Xử lý tin nhắn
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     van_ban_goc = message.text  # Lấy nội dung tin nhắn từ người dùng
@@ -185,34 +184,27 @@ def handle_message(message):
     bot.reply_to(message, ket_qua)  # Trả kết quả về cho người dùng
 
 
-print('Bot is running...')
-
+if __name__ == "__main__":
+    print("Bot đang chạy với polling...")
+    bot.infinity_polling()
 
 # ===== 3. Chạy Flask để giữ Web Service hoạt động =====
-TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"
-WEBHOOK_URL = f"https://telebot-1-io0s.onrender.com/{TOKEN}"
-
-bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bot is running!"
+     return "Bot is running!"
 
-@app.route(f'/{TOKEN}', methods=['POST'])
-def receive_update():
-    update = request.get_json()
-    if update:
-        bot.process_new_updates([telebot.types.Update.de_json(update)])
-    return "OK", 200
+ # ===== 4. Chạy bot và server Flask =====
+if __name__ == '__main__':
+     from threading import Thread
 
-if __name__ == "__main__":
-    # Lấy PORT từ biến môi trường (Render cấp)
-    port = int(os.environ.get("PORT", 10000))
+     # Chạy bot trên một luồng riêng
+     def run_bot():
+         bot.polling()
 
-    # Thiết lập webhook
-    bot.remove_webhook()
-    bot.set_webhook(url=WEBHOOK_URL)
+     Thread(target=run_bot).start()
 
-    # Chạy Flask server
-    app.run(host="0.0.0.0", port=port)
+     # Chạy Flask trên cổng Render yêu cầu
+     port = int(os.environ.get("PORT", 10000))
+     app.run(host='0.0.0.0', port=port)
