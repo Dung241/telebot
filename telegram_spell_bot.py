@@ -189,7 +189,7 @@ bot.polling()
 
 # ===== 3. Chạy Flask để giữ Web Service hoạt động =====
 TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"
-WEBHOOK_URL = f"https://telebot-1-io0s.onrender.com/{TOKEN}"
+WEBHOOK_URL = "https://telebot-1-io0s.onrender.com/webhook"
 
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
