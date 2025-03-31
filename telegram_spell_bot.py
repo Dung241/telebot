@@ -198,7 +198,7 @@ app = Flask(__name__)
 def home():
     return "Bot is running!"
 
-@app.route(f'/{TOKEN}', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def receive_update():
     update = request.get_json()
     if update:
