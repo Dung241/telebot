@@ -185,7 +185,7 @@ def handle_message(message):
 
 
 print('Bot is running...')
-bot.polling()
+
 
 # ===== 3. Chạy Flask để giữ Web Service hoạt động =====
 TOKEN = "7922091397:AAHpyLRpiXr_IkDMFLPjy-IR048-RE_SZKI"
